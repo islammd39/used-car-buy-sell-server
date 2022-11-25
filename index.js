@@ -7,10 +7,10 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 
 
 
-const uri = "mongodb+srv://<username>:<password>@cluster0.rbojs1n.mongodb.net/?retryWrites=true&w=majority";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.rbojs1n.mongodb.net/?retryWrites=true&w=majoritymongodb+srv://<username>:<password>@cluster0.rbojs1n.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
-
+console.log(uri);
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
