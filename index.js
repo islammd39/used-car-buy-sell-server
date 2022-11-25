@@ -6,12 +6,30 @@ require('dotenv').config();
 const { MongoClient, ServerApiVersion } = require('mongodb');
 
 
-
+app.use(cors())
+app.use(express.json())
 
 const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.rbojs1n.mongodb.net/?retryWrites=true&w=majoritymongodb+srv://<username>:<password>@cluster0.rbojs1n.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 // console.log(uri);
+
+async function run (){
+  try{
+     const carCollection = client.db('secondHandCarCollection').collection('carCategories')
+
+     app.get('/categories', async(req, res)=>{
+      const query = {}
+      const options = await carCollection.find(query).toArray();
+      res.send(options)
+     })
+
+  }
+  finally{
+
+  }
+}
+run().catch(console.log)
 
 app.get('/', (req, res) => {
   res.send('Hello World!')
